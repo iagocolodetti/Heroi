@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<!-- iagocolodetti -->
+<html>
+    <head>
+        <title>Heroi</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="js/app.js" type="text/javascript"></script>
+        <link href="css/estilos.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body data-ng-app="heroiApp">
+        <div class="container-fluid center" data-ng-controller="heroiController">
+            <div class="row justify-content-center">
+                <form class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center" data-ng-submit="cadastrarHeroi()" data-ng-init="carregarUniversos()">
+                    <hr/>
+                    <h3>Cadastrar Herói</h3>
+                    <div class="form-row mb-4 justify-content-center">
+                        <div class="col-7 input-wrap">
+                            <input type="text" class="form-control" data-ng-model="nome" required/>
+                            <span class="floating-label">Nome</span>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4 justify-content-center">
+                        <div class="col-7 select-wrap">
+                            <select class="form-control" data-ng-model="universo" required>
+                                <option value="" disabled selected></option>
+                                <option data-ng-repeat="u in universos" value="{{u.id}}">{{u.nome}}</option>
+                            </select>
+                            <span class="floating-label">Universo</span>
+                        </div>
+                    </div>
+                    <div class="form-row mb-4 justify-content-center">
+                        <div class="col-5">
+                            <input type="text" class="form-control" data-ng-model="poder" placeholder="Poder"/>
+                        </div>
+                        <div class="col-2">
+                            <input type="button" class="btn btn-secondary" value="Adicionar" data-ng-click="adicionarPoder()"/>
+                        </div>
+                    </div>
+                    <div class="table-responsive" data-ng-show="poderes.length > 0">
+                        <table id="tabelaPoderes" class="table table-bordered table-sm mx-auto w-auto">
+                            <thead>
+                                <tr>
+                                    <th>Poder</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="p in poderes">
+                                    <td width="90%">{{p.descricao}}</td>
+                                    <td width="10%">
+                                        <button class="btn btn-danger" style="height: 1.5em;" data-ng-click="removerPoder(p)">
+                                            <span style="position: relative; bottom: 8px;">Remover</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="form-row mb-4 justify-content-center">
+                        <input type="submit" class="btn btn-success" value="Cadastrar"/>
+                    </div>
+                    <div class="alert alert-success" role="alert" data-ng-show="resultado">
+                        {{resultado}}
+                    </div>
+                    <div class="alert alert-danger" role="alert" data-ng-show="cadastrarErro">
+                        {{cadastrarErro}}
+                    </div>
+                </form>
+                <div class="form-group col-xs-12 col-sm-12 col-md-8 col-lg-8 text-center" data-ng-init="carregarHerois()">
+                    <hr/>
+                    <h3>Heróis</h3>
+                    <div class="table-responsive">
+                        <table id="tabelaHeroi" class="table table-bordered table-sm mx-auto w-auto">
+                            <thead>
+                                <tr>
+                                    <th data-ng-click="ordenarPor('nome')">Nome</th>
+                                    <th data-ng-click="ordenarPor('nomeUniverso')">Universo</th>
+                                    <th data-ng-click="ordenarPor('dataCadastro')">Cadastrado</th>
+                                    <th data-ng-click="ordenarPor('poderes')">Poder(es)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="h in herois | orderBy:propriedade:reverso">
+                                    <td>{{h.nome}}</td>
+                                    <td>{{h.nomeUniverso}}</td>
+                                    <td>{{h.dataCadastro}}</td>
+                                    <td>
+                                        <span data-ng-repeat="p in h.poderes">{{p.descricao}}; </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-danger" style="height: 1.5em;" data-ng-click="excluirHeroi(h)">
+                                            <span style="position: relative; bottom: 8px;">Excluir</span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="alert alert-danger" role="alert" data-ng-show="heroisErro">
+                        {{heroisErro}}
+                    </div>
+                    <input type="button" class="btn btn-primary" value="Atualizar" data-ng-click="carregarHerois()"/>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
