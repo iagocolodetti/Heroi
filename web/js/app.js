@@ -78,7 +78,7 @@ app.controller('heroiController', function($scope, $http) {
         if (confirm("A exclusão será feita no banco de dados e será permanente, deseja continuar?")) {
             try {
                 var xhr = new XMLHttpRequest();
-                xhr.open("DELETE", webservice + 'heroi/delete/' + heroi.id, true);
+                xhr.open("PUT", webservice + 'heroi/delete/' + heroi.id, true);
                 xhr.send(null);
                 $scope.herois.splice($scope.herois.indexOf(heroi), 1);
                 alert('Herói excluído com sucesso.');

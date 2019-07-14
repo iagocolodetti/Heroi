@@ -58,21 +58,4 @@ public class PoderDAOImpl implements PoderDAO {
         }
         return poderes;
     }
-    
-    @Override
-    public void delete(Connection con, int idHeroi) throws SQLException {
-        
-        PreparedStatement ps = null;
-        try {
-            ps = con.prepareStatement("DELETE FROM poder WHERE idHeroi = ?");
-            ps.setInt(1, idHeroi);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new SQLException("Não foi possível excluir/remover o(s) poder(es).");
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-        }
-    }
 }

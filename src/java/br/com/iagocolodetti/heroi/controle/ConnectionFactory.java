@@ -12,9 +12,9 @@ import java.sql.SQLException;
  */
 public class ConnectionFactory {
 
-    private final String DRIVER = "com.mysql.jdbc.Driver";
-    private final String URL = "jdbc:mysql://localhost:3306/heroidb";
-    private final String USER = "root";
+    private final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private final String URL = "jdbc:sqlserver://IAGO-PC:1433;databaseName=heroidb";
+    private final String USER = "sa";
     private final String PASS = "root";
 
     public Connection getConnection() {
